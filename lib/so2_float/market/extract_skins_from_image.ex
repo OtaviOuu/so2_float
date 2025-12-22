@@ -13,7 +13,8 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
 
   defp request_for_llm(image_url) do
     header = [
-      {"Authorization", "Bearer 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"}
+      {"Authorization", "Bearer #{groq_api_key()}"},
+      {"Content-Type", "application/json"}
     ]
 
     body = %{
@@ -79,5 +80,9 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
         ]
       }
       "
+  end
+
+  defp groq_api_key do
+    Application.fetch_env!(:so2_float, :groq_api_key)
   end
 end
