@@ -1,6 +1,8 @@
 defmodule So2Float.Market.Skin do
   use Ecto.Schema
 
+  import Ecto.Changeset
+
   alias So2Float.Market.Weapon
 
   @primary_key {:complete_name, :string, autogenerate: false}
@@ -13,5 +15,12 @@ defmodule So2Float.Market.Skin do
       references: :name
 
     timestamps()
+  end
+
+  def changeset(skin, attrs) do
+    skin
+    |> cast(attrs, [:complete_name, :name, :weapon_name])
+    |> validate_required([:complete_name, :name, :weapon_name])
+    |> foreign_key_constraint(:weapon_name)
   end
 end

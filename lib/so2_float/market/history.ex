@@ -3,6 +3,8 @@ defmodule So2Float.Market.History do
 
   alias So2Float.Market.{Skin}
 
+  import Ecto.Changeset
+
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "history" do
     belongs_to :skin, Skin,
@@ -14,5 +16,11 @@ defmodule So2Float.Market.History do
     field :units, :integer
 
     timestamps()
+  end
+
+  def changeset(history, attrs) do
+    history
+    |> cast(attrs, [:skin_complete_name, :price, :units])
+    |> validate_required([:skin_complete_name, :price, :units])
   end
 end

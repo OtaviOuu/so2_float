@@ -1,12 +1,14 @@
 defmodule So2Float.Market.ExtractSkinsFromImage do
-  alias So2Float.Market.ListWaponsSkins
+  alias So2Float.Market.{ListWaponsSkins, CreateHistoryRecord}
 
   @model "meta-llama/llama-4-maverick-17b-128e-instruct"
 
-  def call(image_url \\ "https://i.imgur.com/l5kFP5t.png") do
+  def call(image_url \\ "https://i.imgur.com/7OOqRo0.png") do
     image_url
     |> request_for_llm
     |> Jason.decode!()
+    |> Map.get("skins")
+    |> Enum.map(&CreateHistoryRecord.call/1)
   end
 
   defp request_for_llm(image_url) do
@@ -70,9 +72,8 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
       {
         'skins': [
           {
-            'weapon': nome da arma,
-            'skin': nome da skin,
-            'price': preco da skin em golds,
+            'skin_complete_name': nome da skin,
+            'price': preco da skin em golds integer,
             'units': unidades disponiveis
           }
         ]
