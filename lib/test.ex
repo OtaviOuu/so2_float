@@ -40,7 +40,8 @@ defmodule Test do
                     {
                       'weapon': nome da arma,
                       'skin': nome da skin,
-                      'price': preco da skin em golds
+                      'price': preco da skin em golds,
+                      'units': unidades disponiveis
                     }
                   ]
                 }
@@ -71,6 +72,6 @@ defmodule Test do
         headers: header
       )
 
-    content_map = JSON.decode!(content)
+    JSON.decode!(content)
   end
 end
