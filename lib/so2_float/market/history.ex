@@ -22,5 +22,6 @@ defmodule So2Float.Market.History do
     history
     |> cast(attrs, [:skin_complete_name, :price, :units])
     |> validate_required([:skin_complete_name, :price, :units])
+    |> foreign_key_constraint(:skin_complete_name)
   end
 end

@@ -20,6 +20,8 @@ if System.get_env("PHX_SERVER") do
   config :so2_float, So2FloatWeb.Endpoint, server: true
 end
 
+config :so2_float, :groq_api_key, System.get_env("GROQ_API_KEY")
+
 config :so2_float, So2FloatWeb.Endpoint,
   http: [port: String.to_integer(System.get_env("PORT", "4000"))]
 
