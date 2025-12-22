@@ -3,13 +3,15 @@ defmodule So2Float.Market.GetPriceHistory do
 
   import Ecto.Query
 
-  alias So2Float.Market.History
+  alias So2Float.Market.{History, Skin}
 
-  def call(skin_complete_name) do
+  def call(%Skin{} = skin, opts \\ []) do
+    limit = Keyword.get(opts, :limit, 100)
+
     History
-    |> where([h], h.skin_complete_name == ^skin_complete_name)
+    |> where([h], h.skin_complete_name == ^skin.complete_name)
     |> order_by([h], asc: h.inserted_at)
-    |> limit(20)
+    |> limit(^limit)
     |> select([h], %{price: h.price, units: h.units, inserted_at: h.inserted_at})
     |> Repo.all()
   end

@@ -18,6 +18,7 @@ defmodule So2FloatWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive, :index
+    live "/skins/:skin_name", SkinsLive.Show, :show
   end
 
   # Other scopes may use custom stacks.

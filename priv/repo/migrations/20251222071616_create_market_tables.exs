@@ -11,6 +11,7 @@ defmodule So2Float.Repo.Migrations.CreateMarketTables do
     create unique_index(:weapons, [:name])
 
     create table(:skins, primary_key: false) do
+      add :name, :string, null: false
       add :complete_name, :string, null: false, primary_key: true
 
       add :weapon_name,

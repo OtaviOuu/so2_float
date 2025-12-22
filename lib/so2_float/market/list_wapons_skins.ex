@@ -5,12 +5,6 @@ defmodule So2Float.Market.ListWaponsSkins do
   import Ecto.Query
 
   def call() do
-    query =
-      from s in Skin,
-        select: %{
-          complete_name: s.complete_name
-        }
-
-    Repo.all(query)
+    Repo.all(Skin)
   end
 end

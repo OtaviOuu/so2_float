@@ -39,7 +39,7 @@ Hooks.LineChartBasic = {
 
       const options = {
         series: [{
-            name: "Desktops",
+            name: "Golds",
             data: seriesData
         }],
           chart: {
@@ -55,6 +55,7 @@ Hooks.LineChartBasic = {
         stroke: {
           curve: 'straight'
         },
+        colors: ['#E6C200'],
         title: {
           text: title,
           align: 'left'
