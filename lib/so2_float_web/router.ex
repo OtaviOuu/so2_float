@@ -22,6 +22,13 @@ defmodule So2FloatWeb.Router do
 
     live "/", HomeLive, :index
     live "/skins/:skin_name", SkinsLive.Show, :show
+
+    scope "/admin" do
+      live_session :admin_dashboard,
+        on_mount: [{So2FloatWeb.UserAuth, :ensure_admin}] do
+        live "/actions-dashboard", AdminLive.ActionsDashboard, :index
+      end
+    end
   end
 
   # Other scopes may use custom stacks.

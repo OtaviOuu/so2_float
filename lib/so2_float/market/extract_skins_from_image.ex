@@ -4,11 +4,14 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
   @model "meta-llama/llama-4-maverick-17b-128e-instruct"
 
   def call(image_url \\ "https://i.imgur.com/7OOqRo0.png") do
-    image_url
-    |> request_for_llm
-    |> Jason.decode!()
-    |> Map.get("skins")
-    |> Enum.map(&CreateHistoryRecord.call/1)
+    results =
+      image_url
+      |> request_for_llm
+      |> Jason.decode!()
+      |> Map.get("skins")
+      |> Enum.map(&CreateHistoryRecord.call/1)
+
+    {:ok, results}
   end
 
   defp request_for_llm(image_url) do

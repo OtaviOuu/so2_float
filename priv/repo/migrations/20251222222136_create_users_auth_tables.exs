@@ -8,7 +8,7 @@ defmodule So2Float.Repo.Migrations.CreateUsersAuthTables do
       add :email, :citext, null: false
       add :hashed_password, :string
       add :confirmed_at, :utc_datetime
-
+      add :role, :string, null: false, default: "user"
       timestamps(type: :utc_datetime)
     end
 
