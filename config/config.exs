@@ -7,6 +7,19 @@
 # General application configuration
 import Config
 
+config :so2_float, :scopes,
+  user: [
+    default: true,
+    module: So2Float.Accounts.Scope,
+    assign_key: :current_scope,
+    access_path: [:user, :id],
+    schema_key: :user_id,
+    schema_type: :id,
+    schema_table: :users,
+    test_data_fixture: So2Float.AccountsFixtures,
+    test_setup_helper: :register_and_log_in_user
+  ]
+
 config :so2_float,
   ecto_repos: [So2Float.Repo],
   generators: [timestamp_type: :utc_datetime]
