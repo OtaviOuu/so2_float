@@ -17,7 +17,7 @@ defmodule So2FloatWeb.Router do
   scope "/", So2FloatWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HomeLive, :index
   end
 
   # Other scopes may use custom stacks.

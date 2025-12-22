@@ -25,11 +25,66 @@ import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/so2_float"
 import topbar from "../vendor/topbar"
 
+
+
+const Hooks = {}
+
+Hooks.LineChartBasic = {
+
+    mounted() {
+      const title = this.el.dataset.title
+      const categoriesData = JSON.parse(this.el.dataset.categories)
+      const seriesData = JSON.parse(this.el.dataset.series)
+
+
+      const options = {
+        series: [{
+            name: "Desktops",
+            data: seriesData
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: title,
+          align: 'left'
+        },
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+          categories: categoriesData,
+        }
+        };
+        const chart = new ApexCharts(this.el, options);
+        chart.render();
+    }
+}
+
+
+
+const allHooks = {...colocatedHooks, ...Hooks}
+
+
+
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
-  hooks: {...colocatedHooks},
+  hooks: {...allHooks},
 })
 
 // Show progress bar on live navigation and form submits
