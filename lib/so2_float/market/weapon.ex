@@ -1,12 +1,10 @@
 defmodule So2Float.Market.Weapon do
   use Ecto.Schema
-  import Ecto.Changeset
 
   alias So2Float.Market.Skin
 
+  @primary_key {:name, :string, autogenerate: false}
   schema "weapons" do
-    field :name, :string, primary_key: true
-
     has_many :skins, Skin,
       foreign_key: :weapon_name,
       references: :name,

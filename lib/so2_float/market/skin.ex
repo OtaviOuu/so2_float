@@ -3,7 +3,7 @@ defmodule So2Float.Market.Skin do
 
   alias So2Float.Market.Weapon
 
-  @primary_key {:id, :string, autogenerate: false}
+  @primary_key {:complete_name, :string, autogenerate: false}
   schema "skins" do
     field :name, :string
 
