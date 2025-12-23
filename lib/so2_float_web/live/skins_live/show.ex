@@ -14,8 +14,6 @@ defmodule So2FloatWeb.SkinsLive.Show do
     dates =
       Enum.map(timeseries, fn %{inserted_at: inserted_at} ->
         inserted_at
-        |> NaiveDateTime.to_date()
-        |> Date.to_string()
       end)
 
     socket =
