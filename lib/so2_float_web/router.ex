@@ -21,6 +21,7 @@ defmodule So2FloatWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive, :index
+    live "/skins", SkinsLive.Index, :index
     live "/skins/:skin_name", SkinsLive.Show, :show
 
     scope "/admin" do

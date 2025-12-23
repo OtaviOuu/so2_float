@@ -14,4 +14,8 @@ defmodule So2Float.Market do
   def get_skin(complete_name) do
     So2Float.Market.GetSkin.call(complete_name)
   end
+
+  def list_skins() do
+    So2Float.Market.ListWaponsSkins.call()
+  end
 end
