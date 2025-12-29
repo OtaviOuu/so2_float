@@ -36,26 +36,10 @@ defmodule So2FloatWeb.Layouts do
   def app(assigns) do
     ~H"""
     <div class="navbar bg-base-100 shadow-sm">
-      <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            class="inline-block h-5 w-5 stroke-current"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            >
-            </path>
-          </svg>
-        </button>
-      </div>
-      <div class="flex-1">
-        <.link navigate={~p"/"} class="btn btn-ghost text-xl">daisyUI</.link>
+      <div class="w-10">
+        <.link navigate={~p"/"}>
+          <img src="/images/image.png" class="rounded-xl" alt="So2Float Logo" />
+        </.link>
       </div>
       <ul class="menu menu-horizontal w-full relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
         <li>
@@ -80,11 +64,6 @@ defmodule So2FloatWeb.Layouts do
           </li>
         <% end %>
       </ul>
-      <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
-          <.icon name="hero-bell" class="size-5" />
-        </button>
-      </div>
     </div>
 
     <main class="px-4 py-20 sm:px-6 lg:px-8">
