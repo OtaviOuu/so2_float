@@ -11,6 +11,10 @@ defmodule So2Float.Market do
     end
   end
 
+  def extract_skins_from_image(image_url) when is_binary(image_url) do
+    So2Float.Market.ExtractSkinsFromImage.call(image_url)
+  end
+
   def get_skin(complete_name) do
     So2Float.Market.GetSkin.call(complete_name)
   end

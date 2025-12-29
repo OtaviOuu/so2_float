@@ -32,10 +32,11 @@ defmodule So2FloatWeb.Router do
     end
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", So2FloatWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", So2FloatWeb do
+    pipe_through :api
+
+    post "/market/publish-market-print", MarketController, :publish_market_print
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:so2_float, :dev_routes) do

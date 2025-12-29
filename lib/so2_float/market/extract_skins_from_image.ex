@@ -4,14 +4,19 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
   @model "meta-llama/llama-4-maverick-17b-128e-instruct"
 
   def call(image_url \\ "https://i.imgur.com/7OOqRo0.png") do
-    results =
-      image_url
-      |> request_for_llm
-      |> Jason.decode!()
-      |> Map.get("skins")
-      |> Enum.map(&CreateHistoryRecord.call/1)
+    with {:ok, content} <- request_for_llm(image_url),
+         {:ok, json} <-
+           Jason.decode(content) do
+      results =
+        json
+        |> Map.get("skins", [])
+        |> Enum.map(&CreateHistoryRecord.call/1)
+        |> Enum.map(fn {:ok, history} -> history end)
 
-    {:ok, results}
+      {:ok, results}
+    else
+      {:error, error} -> {:error, error}
+    end
   end
 
   defp request_for_llm(image_url) do
@@ -47,13 +52,17 @@ defmodule So2Float.Market.ExtractSkinsFromImage do
       stop: nil
     }
 
-    {:ok, %{body: %{"choices" => [%{"message" => %{"content" => content}}]}}} =
-      Req.post("https://api.groq.com/openai/v1/chat/completions",
-        json: body,
-        headers: header
-      )
+    case Req.post("https://api.groq.com/openai/v1/chat/completions",
+           json: body,
+           headers: header,
+           retry: :transient
+         ) do
+      {:ok, %{body: %{"choices" => [%{"message" => %{"content" => content}}]}}} ->
+        {:ok, content}
 
-    content
+      {:error, error} ->
+        {:error, error}
+    end
   end
 
   defp prompt() do
