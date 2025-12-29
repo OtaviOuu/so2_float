@@ -12,7 +12,7 @@ defmodule So2Float.Market do
   end
 
   def extract_skins_from_image(image_url) when is_binary(image_url) do
-    So2Float.Market.ExtractSkinsFromImage.call(image_url)
+    {:error, :unauthorized}
   end
 
   def get_skin(complete_name) do

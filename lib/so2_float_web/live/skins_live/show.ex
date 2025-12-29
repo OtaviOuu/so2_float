@@ -7,7 +7,7 @@ defmodule So2FloatWeb.SkinsLive.Show do
 
   def mount(%{"skin_name" => skin_name}, _session, socket) do
     skin = Market.get_skin(skin_name)
-    timeseries = Market.list_skins_price_history(skin, limit: 100)
+    timeseries = Market.list_skins_price_history(skin, limit: 5)
 
     prices = Enum.map(timeseries, fn %{price: price} -> price end)
 
