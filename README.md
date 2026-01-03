@@ -1,1 +1,1 @@
-poc
+poc: adb + opencv + llm
